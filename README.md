@@ -9,4 +9,4 @@ I am trying to make it run more efficiently and to make it more modular.
 2. Rename the Spreadsheet to "Raw.xlsx" 
 3. Run the Python scrips
 
-##adding featues and fixing compatability
+## Adding featues and fixing compatability
