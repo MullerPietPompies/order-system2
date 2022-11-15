@@ -14,7 +14,6 @@ dfMeat = pd.DataFrame(columns=['Product', 'Amount'])
 dfVeg_Starch = pd.DataFrame(columns=['Product', 'Amount'])
 dfEierTye = pd.DataFrame(columns=['Eier Tipe', 'Tyd', 'Gas'])
 
-
 '''Dear future me. I am very sorry for what you are about to see.'''
 
 
