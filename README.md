@@ -4,4 +4,7 @@ I was approached by my parents who own a few geusthouses/hotels to automate thei
 
 I am trying to make it run more efficiently and to make it more modular.
 
-## This is my first time propperly using Git and Github to track changes
+## How to use
+1. Add the Spreadsheet Downloaded from Microsoft Forms to the same Folder ad the Main.py file
+2. Rename the Spreadsheet to "Raw.xlsx" 
+3. Run the Python scrips
