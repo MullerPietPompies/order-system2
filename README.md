@@ -7,4 +7,4 @@ I am trying to make it run more efficiently and to make it more modular.
 ## How to use
 1. Add the Spreadsheet Downloaded from Microsoft Forms to the same Folder ad the Main.py file
 2. Rename the Spreadsheet to "Raw.xlsx" 
-3. Run the Python scrips
+3. Run the Python scrip
