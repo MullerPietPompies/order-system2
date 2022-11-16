@@ -6,7 +6,7 @@ import time
 
 
 
-rawOrders = pd.read_excel('Raw.xlsx')
+rawOrders = pd.read_excel(r'D:\Python\order_system\main_files\Raw.xlsx')
 rawOrders =  rawOrders.drop(['ID','Start time','Completion time','Email','Name'], axis=1)
 inventory = pd.DataFrame(columns=['Product', 'Amount'])
 dfEggs = pd.DataFrame(columns=['Product', 'Amount'])
@@ -893,7 +893,6 @@ def main():
         dfEggs.to_excel(writer, sheet_name='Eggs', index=False)
         dfMeat.to_excel(writer, sheet_name='Meat', index=False)
         dfVeg_Starch.to_excel(writer, sheet_name='Veg and Starch',index=False)
-    
-
+        
 if __name__ == '__main__':
     main()
