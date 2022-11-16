@@ -359,11 +359,17 @@ def MainBreakfast():
     iwrap = 0
     iengmuffin = 0
 
-    egg_type = ''
+
+    guest = ""
+
 
     
     
     for i in range(0,rawOrders.shape[0]):
+        
+        time_of_order = rawOrders.loc[rawOrders.index[i], 'Time breakfast must be served']
+        geust = rawOrders.loc[rawOrders.index[i], 'Name2']
+
         if rawOrders.loc[rawOrders.index[i],'Please choose one of the following'] == 'Create your own breakfast':
             icreate_own += 1
             print('\nCreate Own for : ' + rawOrders.loc[rawOrders.index[i],'Name2'] + ' at ' + rawOrders.loc[rawOrders.index[i],'Time breakfast must be served'])
@@ -556,12 +562,15 @@ def MainBreakfast():
             if rawOrders.loc[rawOrders.index[i],'How must the eggs be poached for the Eggs Benedict?'] == 'Soft':
                 print('Soft Eggs')
                 ipoached_s += 2
+                egg_type = 'Soft Poached'
             elif rawOrders.loc[rawOrders.index[i],'How must the eggs be poached for the Eggs Benedict?'] == 'Medium':
                 print('Medium Eggs')
                 ipoached_m += 2
+                egg_type = 'Medium Poached'                
             elif rawOrders.loc[rawOrders.index[i],'How must the eggs be poached for the Eggs Benedict?'] == 'Hard':
                 print('Hard Eggs')
                 ipoached_h += 2
+                egg_type = 'Hard Poached'                
                  
             else:
                 pass
@@ -582,7 +591,8 @@ def MainBreakfast():
             ibacon += 1
             iscrambled += 2
             icheese += 1
-            
+            egg_type = "Scrambled"
+
             if rawOrders.loc[rawOrders.index[i],'Choose Chips or Hash Brown4'] == 'Chips':
                 print('Chips')
                 ichips += 1
@@ -598,7 +608,8 @@ def MainBreakfast():
         if rawOrders.loc[rawOrders.index[i],'Please choose one of the following'] == ' Omelette with cheese and your choice of two fillings':
             print('\nOmelette for : ' + rawOrders.loc[rawOrders.index[i],'Name2'] + ' at ' + rawOrders.loc[rawOrders.index[i],'Time breakfast must be served'])
             icheese += 1
-            iscrambled += 3           
+            iscrambled += 3
+            egg_type = "Scrambled Omelette"           
             
             if rawOrders.loc[rawOrders.index[i],'Omelette filling 1'] == 'Mushroom':
                 print('Mushroom')
@@ -701,6 +712,7 @@ def MainBreakfast():
                 ibacon += 1
                 ifried_h += 2
                 icheese += 1
+                egg_type = "Fried Hard for sandwich"
             elif rawOrders.loc[rawOrders.index[i],'Filling for the toasted sandwich'] == 'Bacon, cheese and tomato': 
                 print('Bacon, cheese and tomato')
                 ibacon += 1
@@ -741,12 +753,15 @@ def MainBreakfast():
             if rawOrders.loc[rawOrders.index[i],'How must the eggs be done for the breakfast burger?'] == 'Soft':
                 print('Soft Egg')
                 ifried_s += 1
+                egg_type = "Soft Fried For Burger"
             elif rawOrders.loc[rawOrders.index[i],'How must the eggs be done for the breakfast burger?'] == 'Medium':
                 print('Medium Egg')
                 ifried_m += 1
+                egg_type = "Medium Fried For Burger"
             elif rawOrders.loc[rawOrders.index[i],'How must the eggs be done for the breakfast burger?'] == 'Hard':
                 print('Hard Egg')
                 ifried_h += 1
+                egg_type = "Hard Fried For Burger"
             else:
                 pass
             
@@ -770,12 +785,14 @@ def MainBreakfast():
                 iscrambled += 2
                 ibacon += 1
                 icheese += 1
+                egg_type = "Scrabled For Wrap"
             elif rawOrders.loc[rawOrders.index[i],'Filling for the breakfast wrap'] == 'Scrambled egg, tomato, bacon and cheese':
                 print('Scrambled egg,Tomato, Bacon and Cheese')
                 iscrambled += 2
                 ibacon += 1
                 icheese += 1
                 itomato += 1
+                egg_type = "Scrembled For Wrap"
             elif rawOrders.loc[rawOrders.index[i],'Filling for the breakfast wrap'] == 'Chicken mayonaise':
                 print('Chicken Mayo')
                 ichick_mayo += 1
@@ -809,6 +826,9 @@ def MainBreakfast():
             
         else:
             pass
+        if egg_type != "":
+            dfEierTye.loc[i] = [egg_type,time_of_order,geust]
+
     print('\nCreate Own Total: ' + str(icreate_own))
     
 
@@ -826,6 +846,7 @@ def MainBreakfast():
     dfEggs.loc[indexnum] = ['Hard Fried',ifried_h]
     
     
+
     # print('Soft Boiled: ' + str(iboiled_s))
     # print('Medium Boiled: ' + str(iboiled_m))
     # print('Hard Boiled: ' + str(iboiled_h))
@@ -843,7 +864,10 @@ def MainBreakfast():
     indexnum+= 1
     dfEggs.loc[indexnum] = ['Hard Poaced' ,    ipoached_h]
     indexnum+= 1
-    dfEggs.loc[indexnum] = ['Scrambled' ,    iscrambled]    
+    dfEggs.loc[indexnum] = ['Scrambled' ,    iscrambled] 
+
+
+ 
     
     
     dfMeat.loc[dfMeat.shape[0]+1] =['Bacon', ibacon]
@@ -887,12 +911,15 @@ def main():
     print('\nDrinks')
     CountDrinks()
     MainBreakfast()
+
+    dfEierTye.sort_values(by=["Tyd"])
     
     with pd.ExcelWriter('Out.xlsx') as writer:
         inventory.to_excel(writer, sheet_name='Juice and Drinks', index=False)
         dfEggs.to_excel(writer, sheet_name='Eggs', index=False)
         dfMeat.to_excel(writer, sheet_name='Meat', index=False)
         dfVeg_Starch.to_excel(writer, sheet_name='Veg and Starch',index=False)
+        dfEierTye.to_excel(writer, sheet_name="Eggs And time to be completed", index=False)
         
 if __name__ == '__main__':
     main()
