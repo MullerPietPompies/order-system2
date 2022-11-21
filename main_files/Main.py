@@ -1,12 +1,13 @@
 import  pandas as pd
 import numpy as np
 import time 
+import datetime as dt
 
 #THis is a test comment to test git and git hub
 
 
 
-rawOrders = pd.read_excel(r'D:\Python\order_system\main_files\Raw.xlsx')
+rawOrders = pd.read_excel(r'/home/mllr/Documents/Python/order-system2/main_files/Raw.xlsx')
 rawOrders =  rawOrders.drop(['ID','Start time','Completion time','Email','Name'], axis=1)
 inventory = pd.DataFrame(columns=['Product', 'Amount'])
 dfEggs = pd.DataFrame(columns=['Product', 'Amount'])
@@ -912,8 +913,14 @@ def main():
     CountDrinks()
     MainBreakfast()
 
+
+    dfEierTye['Tyd'] = pd.to_datetime(dfEierTye['Tyd'])
+
     dfEierTye.sort_values(by=["Tyd"])
-    
+
+
+
+
     with pd.ExcelWriter('Out.xlsx') as writer:
         inventory.to_excel(writer, sheet_name='Juice and Drinks', index=False)
         dfEggs.to_excel(writer, sheet_name='Eggs', index=False)
