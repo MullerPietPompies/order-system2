@@ -918,10 +918,6 @@ def main():
     dfEierTye['Tyd'] = dfEierTye['Tyd'].dt.time 
 
     dfEierTye.sort_values(by=["Tyd"], inplace=True)
-
-
-
-
     with pd.ExcelWriter('Out.xlsx') as writer:
         inventory.to_excel(writer, sheet_name='Juice and Drinks', index=False)
         dfEggs.to_excel(writer, sheet_name='Eggs', index=False)
