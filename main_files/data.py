@@ -2,23 +2,23 @@ import  pandas as pd
 import numpy as np
 import time 
 import datetime as dt
-
-#THis is a test comment to test git and git hub
-
+import os
 
 
-rawOrders = pd.read_excel(r'D:\Python\order_system\main_files\Raw.xlsx')
-rawOrders =  rawOrders.drop(['ID','Start time','Completion time','Email','Name'], axis=1)
+
+
+
+
 inventory = pd.DataFrame(columns=['Product', 'Amount'])
 dfEggs = pd.DataFrame(columns=['Product', 'Amount'])
 dfMeat = pd.DataFrame(columns=['Product', 'Amount'])
 dfVeg_Starch = pd.DataFrame(columns=['Product', 'Amount'])
 dfEierTye = pd.DataFrame(columns=['Eier Tipe', 'Tyd', 'Gas'])
 
-'''Dear future me. I am very sorry for what you are about to see.'''
+'''Dear future me. I am very sorry for what you are about to have to use.'''
 
 
-def CountItems():
+def CountItems(raw_data):
     iJuice = 0
     iYoghurtPlain = 0
     iYoghurtFlav = 0
@@ -27,8 +27,8 @@ def CountItems():
 
     
     '''Count Juice'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.iloc[i,6] == 'Yes;':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.iloc[i,6] == 'Yes;':
             iJuice = iJuice + 1
         else:
             pass
@@ -40,9 +40,9 @@ def CountItems():
     
     
     '''Count Yoghurt'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.iloc[i,7] == 'Yes':
-            if rawOrders.iloc[i,8] == 'Fruit Flavoured':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.iloc[i,7] == 'Yes':
+            if raw_data.iloc[i,8] == 'Fruit Flavoured':
                 iYoghurtFlav = iYoghurtFlav + 1
             else:
                 iYoghurtPlain = iYoghurtPlain + 1
@@ -57,8 +57,8 @@ def CountItems():
     inventory.loc[indexnum] = ['Yoghurt Plain ', iYoghurtPlain]
     
     '''Count Fruit Salad'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.iloc[i,9] == 'Yes':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.iloc[i,9] == 'Yes':
             iFruitSalad = iFruitSalad + 1
         else:
             pass
@@ -71,19 +71,19 @@ def CountItems():
     
     
 '''Add Not Included'''
-def NotIncluded():
+def NotIncluded(raw_data):
     
 
     print(' \nDo Not Include!!!')
     '''Display Not Included'''
-    for i in range(0,rawOrders.shape[0]):
-        if type(rawOrders.iloc[i,10]) != float:
-            print(rawOrders.iloc[i,0]+': ' + rawOrders.iloc[i,10])
+    for i in range(0,raw_data.shape[0]):
+        if type(raw_data.iloc[i,10]) != float:
+            print(raw_data.iloc[i,0]+': ' + raw_data.iloc[i,10])
         else:
             pass 
         
 '''Count Cereal'''
-def Cereal():
+def Cereal(raw_data):
     icorn_flakes = 0
     ibran = 0
     imuesli_milk = 0
@@ -93,8 +93,8 @@ def Cereal():
     indexnum = inventory.shape[0]
     
     '''Count Corn Flakes'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.iloc[i,11] == 'Corn Flakes with milk':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.iloc[i,11] == 'Corn Flakes with milk':
             icorn_flakes = icorn_flakes + 1
         else:
             pass
@@ -105,8 +105,8 @@ def Cereal():
     
     
     '''Count All Bran'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.iloc[i,11] == 'Bran Flakes with milk':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.iloc[i,11] == 'Bran Flakes with milk':
             ibran = ibran + 1
         else:
             pass
@@ -117,8 +117,8 @@ def Cereal():
     
     
     '''Count Muesli With milk'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.iloc[i,11] == 'Muesli with cold milk':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.iloc[i,11] == 'Muesli with cold milk':
             imuesli_milk = imuesli_milk + 1
         else:
             pass
@@ -129,8 +129,8 @@ def Cereal():
     
     
     '''Count Muesli with yoghurt'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.iloc[i,11] == 'Muesli without milk - I will enjoy it with my yoghurt':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.iloc[i,11] == 'Muesli without milk - I will enjoy it with my yoghurt':
             imuesli_no_milk = imuesli_no_milk + 1
         else:
             pass
@@ -141,8 +141,8 @@ def Cereal():
     
     
     '''Count Pronutro'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.iloc[i,11] == 'Pronutro with milk':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.iloc[i,11] == 'Pronutro with milk':
             ipronutro = ipronutro + 1
         else:
             pass
@@ -154,8 +154,8 @@ def Cereal():
     
     
     '''Count Oats'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.iloc[i,11] == 'Oats with milk':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.iloc[i,11] == 'Oats with milk':
             ioats = ioats + 1
         else:
             pass
@@ -167,7 +167,7 @@ def Cereal():
     
     
 '''Bread'''
-def CountBread():
+def CountBread(raw_data):
     it_brown = 0
     it_white = 0
     ip_brown = 0
@@ -175,8 +175,8 @@ def CountBread():
     indexnum = inventory.shape[0]
     
     '''Toasted brown'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.iloc[i,12] == 'Toasted brown':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.iloc[i,12] == 'Toasted brown':
             it_brown = it_brown + 1
         else:
             pass
@@ -185,8 +185,8 @@ def CountBread():
     inventory.loc[indexnum] = ['Toasted Brown ',it_brown]
     
     '''Toasted White'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.iloc[i,12] == 'Toasted white':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.iloc[i,12] == 'Toasted white':
             it_white = it_white + 1
         else:
             pass
@@ -196,8 +196,8 @@ def CountBread():
     
     
     '''Plain Brown'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.iloc[i,12] == 'Plain brown':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.iloc[i,12] == 'Plain brown':
             ip_brown = ip_brown + 1
         else:
             pass
@@ -206,8 +206,8 @@ def CountBread():
     inventory.loc[indexnum] = ['Plain Brown ',ip_brown]
 
     '''Plain White'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.loc[rawOrders.index[i],'Bread'] == 'Plain white':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.loc[raw_data.index[i],'Bread'] == 'Plain white':
             ip_white = ip_white + 1
         else:
             pass
@@ -218,7 +218,7 @@ def CountBread():
     
 '''Count Drinks'''
 
-def CountDrinks():
+def CountDrinks(raw_data):
     ifilter_b = 0
     ifilter_w = 0 
     icuppuccino = 0
@@ -231,8 +231,8 @@ def CountDrinks():
     
     
     '''Filter black'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.loc[rawOrders.index[i],'Can we add any of the following hot drinks to you order'] == 'Filter coffee - black':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.loc[raw_data.index[i],'Can we add any of the following hot drinks to you order'] == 'Filter coffee - black':
             ifilter_b = ifilter_b + 1
         else:
             pass
@@ -241,8 +241,8 @@ def CountDrinks():
     inventory.loc[indexnum] = ['Filter Coffee Black',ifilter_b]
 
     '''Filter White'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.loc[rawOrders.index[i],'Can we add any of the following hot drinks to you order'] == 'Filter Coffee with milk':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.loc[raw_data.index[i],'Can we add any of the following hot drinks to you order'] == 'Filter Coffee with milk':
             ifilter_w = ifilter_w + 1
         else:
             pass
@@ -251,8 +251,8 @@ def CountDrinks():
     inventory.loc[indexnum] = ['Filter Coffee White',ifilter_w]
     
     '''Cuppuccino'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.loc[rawOrders.index[i],'Can we add any of the following hot drinks to you order'] == 'Cappuccino':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.loc[raw_data.index[i],'Can we add any of the following hot drinks to you order'] == 'Cappuccino':
             icuppuccino += 1
         else:
             pass
@@ -261,8 +261,8 @@ def CountDrinks():
     inventory.loc[indexnum] = ['Cuppucino',icuppuccino]
 
     '''Cafe late'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.loc[rawOrders.index[i],'Can we add any of the following hot drinks to you order'] == 'Café Late':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.loc[raw_data.index[i],'Can we add any of the following hot drinks to you order'] == 'Café Late':
             icaflate = icaflate + 1
         else:
             pass
@@ -271,16 +271,16 @@ def CountDrinks():
     inventory.loc[indexnum] = ['Cafe Late',icaflate]
     
     '''Hot Chocolate'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.loc[rawOrders.index[i],'Can we add any of the following hot drinks to you order'] == 'Hot Chocolate':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.loc[raw_data.index[i],'Can we add any of the following hot drinks to you order'] == 'Hot Chocolate':
             ihc += 1
         else:
             pass
     indexnum+= 1
     inventory.loc[indexnum] = ['Hot Chocolate',ihc]
     '''Five Roses'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.loc[rawOrders.index[i],'Can we add any of the following hot drinks to you order'] == 'Five Roses tea':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.loc[raw_data.index[i],'Can we add any of the following hot drinks to you order'] == 'Five Roses tea':
             ifiveroses += 1
         else:
             pass
@@ -288,8 +288,8 @@ def CountDrinks():
     inventory.loc[indexnum] = ['Five Roses',ifiveroses]
     
     '''Rooibos'''
-    for i in range(0,rawOrders.shape[0]):
-        if rawOrders.loc[rawOrders.index[i],'Can we add any of the following hot drinks to you order'] == 'Rooibos Tea':
+    for i in range(0,raw_data.shape[0]):
+        if raw_data.loc[raw_data.index[i],'Can we add any of the following hot drinks to you order'] == 'Rooibos Tea':
             irooibos += 1
         else:
             pass
@@ -298,7 +298,7 @@ def CountDrinks():
     
     
 '''Main Breakfast'''
-def MainBreakfast():
+def MainBreakfast(raw_data):
     '''Options'''
     icreate_own = 0
     ieggsbenedict = 0
@@ -366,48 +366,48 @@ def MainBreakfast():
 
     
     
-    for i in range(0,rawOrders.shape[0]):
+    for i in range(0,raw_data.shape[0]):
         
-        time_of_order = rawOrders.loc[rawOrders.index[i], 'Time breakfast must be served']
-        geust = rawOrders.loc[rawOrders.index[i], 'Name2']
+        time_of_order = raw_data.loc[raw_data.index[i], 'Time breakfast must be served']
+        geust = raw_data.loc[raw_data.index[i], 'Name2']
 
-        if rawOrders.loc[rawOrders.index[i],'Please choose one of the following'] == 'Create your own breakfast':
+        if raw_data.loc[raw_data.index[i],'Please choose one of the following'] == 'Create your own breakfast':
             icreate_own += 1
-            print('\nCreate Own for : ' + rawOrders.loc[rawOrders.index[i],'Name2'] + ' at ' + rawOrders.loc[rawOrders.index[i],'Time breakfast must be served'])
+            print('\nCreate Own for : ' + raw_data.loc[raw_data.index[i],'Name2'] + ' at ' + raw_data.loc[raw_data.index[i],'Time breakfast must be served'])
             '''Fried eggs'''
             
-            if rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:'] == 'Soft fried':
+            if raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:'] == 'Soft fried':
                 print('Soft Fried')
                 ifried_s += 2
-                egg_type = rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:'] 
+                egg_type = raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:'] 
 
 
-            elif rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:'] == 'Medium fried':
+            elif raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:'] == 'Medium fried':
                 print('Medium Fried')
                 ifried_m += 2
-                egg_type = rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:']       
+                egg_type = raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:']       
 
-            elif rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:'] == 'Hard fried':
+            elif raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:'] == 'Hard fried':
                 print('Hard Fried')
                 ifried_h += 2
-                egg_type = rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:']       
+                egg_type = raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:']       
             else:
                 pass
                 
             '''Boiled Eggs'''
-            if rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:'] == 'Soft boiled':
+            if raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:'] == 'Soft boiled':
                 print('Soft Boiled')
                 iboiled_s += 2
-                egg_type = rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:']
-            elif rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:'] == 'Medium boiled':
+                egg_type = raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:']
+            elif raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:'] == 'Medium boiled':
                 print('Medium Boiled')
                 iboiled_m += 2
-                egg_type = rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:']
+                egg_type = raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:']
 
-            elif rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:'] == 'Hard boiled':
+            elif raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:'] == 'Hard boiled':
                 print('Hard Boiled')
                 iboiled_h += 2
-                egg_type = rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:']
+                egg_type = raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:']
             else:
                 pass
             
@@ -415,70 +415,70 @@ def MainBreakfast():
             # dfEggs.loc[dfEggs.shape[0]+ 1] = 
             
             '''Poached Eggs'''
-            if rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:'] == 'Soft Poached':
+            if raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:'] == 'Soft Poached':
                 print('Soft Poached')
                 ipoached_s += 2
-                egg_type = rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:']
+                egg_type = raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:']
 
-            elif rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:'] == 'Medium Poached':
+            elif raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:'] == 'Medium Poached':
                 print('Medium Poached')
                 ipoached_m += 2
-                egg_type = rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:']
+                egg_type = raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:']
             
-            elif rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:'] == 'Hard Poached':
+            elif raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:'] == 'Hard Poached':
                 print('Hard Poached')
                 ipoached_h += 2
-                egg_type = rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:']
+                egg_type = raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:']
             else:
                 pass
             
             '''Scrambled'''    
             
-            if rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:'] == 'Scrambled':
+            if raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:'] == 'Scrambled':
                 print('Scrambled')
                 iscrambled += 2
-                egg_type = rawOrders.loc[rawOrders.index[i],'Two eggs prepared the way you like it:']
+                egg_type = raw_data.loc[raw_data.index[i],'Two eggs prepared the way you like it:']
             else:
                 pass
             
             '''Meat Option 1'''
-            if rawOrders.loc[rawOrders.index[i],'Choose your first meat option'] == 'Bacon':
+            if raw_data.loc[raw_data.index[i],'Choose your first meat option'] == 'Bacon':
                 print('Bacon')
                 ibacon += 1
             
-            elif rawOrders.loc[rawOrders.index[i],'Choose your first meat option'] == 'Beef Burger patty':
+            elif raw_data.loc[raw_data.index[i],'Choose your first meat option'] == 'Beef Burger patty':
                 print('Patty/Mince')
                 ipatty_mince += 1
                 
-            elif rawOrders.loc[rawOrders.index[i],'Choose your first meat option'] == 'Minute steak':
+            elif raw_data.loc[raw_data.index[i],'Choose your first meat option'] == 'Minute steak':
                 print('Steak')
                 iSteak += 1
             
-            elif rawOrders.loc[rawOrders.index[i],'Choose your first meat option'] == 'Savoury mince':
+            elif raw_data.loc[raw_data.index[i],'Choose your first meat option'] == 'Savoury mince':
                 print('Patty/Mince')
                 ipatty_mince += 1
             
-            elif rawOrders.loc[rawOrders.index[i],'Choose your first meat option'] == 'Boerewors':
+            elif raw_data.loc[raw_data.index[i],'Choose your first meat option'] == 'Boerewors':
                 print('Boerewors')
                 iboerewors += 1
                   
-            elif rawOrders.loc[rawOrders.index[i],'Choose your first meat option'] == 'Creamy chicken livers':
+            elif raw_data.loc[raw_data.index[i],'Choose your first meat option'] == 'Creamy chicken livers':
                 print('Chicken livers')
                 ichick_liv += 1
             
-            elif rawOrders.loc[rawOrders.index[i],'Choose your first meat option'] == 'Pork Banger':
+            elif raw_data.loc[raw_data.index[i],'Choose your first meat option'] == 'Pork Banger':
                 print('Pork Banger')
                 ipork += 1
             
-            elif rawOrders.loc[rawOrders.index[i],'Choose your first meat option'] == 'Mini Cheese Griller':
+            elif raw_data.loc[raw_data.index[i],'Choose your first meat option'] == 'Mini Cheese Griller':
                 print('Cheese Griller')
                 icheesegriller += 1
                 
-            elif rawOrders.loc[rawOrders.index[i],'Choose your first meat option'] == 'Chicken schnitzel-patty':
+            elif raw_data.loc[raw_data.index[i],'Choose your first meat option'] == 'Chicken schnitzel-patty':
                 print('Chicken Schintzel')
                 ichick_schn += 1
                 
-            elif rawOrders.loc[rawOrders.index[i],'Choose your first meat option'] == 'Chicken Nuggets':
+            elif raw_data.loc[raw_data.index[i],'Choose your first meat option'] == 'Chicken Nuggets':
                 print('Chicken Nuggets')
                 ichick_nugg += 1
             else:
@@ -487,43 +487,43 @@ def MainBreakfast():
             
             
             '''Meat Option 2'''
-            if rawOrders.loc[rawOrders.index[i],'Choose your second meat option'] == 'Bacon':
+            if raw_data.loc[raw_data.index[i],'Choose your second meat option'] == 'Bacon':
                 print('Bacon')
                 ibacon += 1
             
-            elif rawOrders.loc[rawOrders.index[i],'Choose your second meat option'] == 'Beef Burger patty':
+            elif raw_data.loc[raw_data.index[i],'Choose your second meat option'] == 'Beef Burger patty':
                 print('Patty/Mince')
                 ipatty_mince += 1
                 
-            elif rawOrders.loc[rawOrders.index[i],'Choose your second meat option'] == 'Minute steak':
+            elif raw_data.loc[raw_data.index[i],'Choose your second meat option'] == 'Minute steak':
                 print('Steak')
                 iSteak += 1
             
-            elif rawOrders.loc[rawOrders.index[i],'Choose your second meat option'] == 'Savoury mince':
+            elif raw_data.loc[raw_data.index[i],'Choose your second meat option'] == 'Savoury mince':
                 print('Patty/Mince')
                 ipatty_mince += 1
             
-            elif rawOrders.loc[rawOrders.index[i],'Choose your second meat option'] == 'Boerewors':
+            elif raw_data.loc[raw_data.index[i],'Choose your second meat option'] == 'Boerewors':
                 print('Boerewors')
                 iboerewors += 1
                   
-            elif rawOrders.loc[rawOrders.index[i],'Choose your second meat option'] == 'Creamy chicken livers':
+            elif raw_data.loc[raw_data.index[i],'Choose your second meat option'] == 'Creamy chicken livers':
                 print('Chicken livers')
                 ichick_liv += 1
             
-            elif rawOrders.loc[rawOrders.index[i],'Choose your second meat option'] == 'Pork Banger':
+            elif raw_data.loc[raw_data.index[i],'Choose your second meat option'] == 'Pork Banger':
                 print('Pork Banger')
                 ipork += 1
             
-            elif rawOrders.loc[rawOrders.index[i],'Choose your second meat option'] == 'Mini Cheese Griller':
+            elif raw_data.loc[raw_data.index[i],'Choose your second meat option'] == 'Mini Cheese Griller':
                 print('Cheese Griller')
                 icheesegriller += 1
                 
-            elif rawOrders.loc[rawOrders.index[i],'Choose your second meat option'] == 'Chicken schnitzel-patty':
+            elif raw_data.loc[raw_data.index[i],'Choose your second meat option'] == 'Chicken schnitzel-patty':
                 print('Chicken Schintzel')
                 ichick_schn += 1
                 
-            elif rawOrders.loc[rawOrders.index[i],'Choose your second meat option'] == 'Chicken Nuggets':
+            elif raw_data.loc[raw_data.index[i],'Choose your second meat option'] == 'Chicken Nuggets':
                 print('Chicken Nuggets')
                 ichick_nugg += 1
             else:
@@ -531,44 +531,44 @@ def MainBreakfast():
             
             
             '''Veggie/Starch'''
-            if rawOrders.loc[rawOrders.index[i],'Choose your vegetable/starch'] == 'Tomato relish with mieliepap':
+            if raw_data.loc[raw_data.index[i],'Choose your vegetable/starch'] == 'Tomato relish with mieliepap':
                 print('Pap en relish')
                 ipap_relish += 1
                 itomato += 1
                 
-            elif rawOrders.loc[rawOrders.index[i],'Choose your vegetable/starch'] == 'Baked beans':
+            elif raw_data.loc[raw_data.index[i],'Choose your vegetable/starch'] == 'Baked beans':
                 print('Baked beans')
                 ibeans += 1
-            elif rawOrders.loc[rawOrders.index[i],'Choose your vegetable/starch'] == 'Potato hash brown':
+            elif raw_data.loc[raw_data.index[i],'Choose your vegetable/starch'] == 'Potato hash brown':
                 print('Potato hash brown')
                 ihashbrown += 1
-            elif rawOrders.loc[rawOrders.index[i],'Choose your vegetable/starch'] == 'Mushrooms':
+            elif raw_data.loc[raw_data.index[i],'Choose your vegetable/starch'] == 'Mushrooms':
                 print('Mushrooms')
                 imushroom += 1
-            elif rawOrders.loc[rawOrders.index[i],'Choose your vegetable/starch'] == 'Fried Onion':
+            elif raw_data.loc[raw_data.index[i],'Choose your vegetable/starch'] == 'Fried Onion':
                 print('Fried Onion')
                 ionion_ring += 1
-            elif rawOrders.loc[rawOrders.index[i],'Choose your vegetable/starch'] == 'French Fries':
+            elif raw_data.loc[raw_data.index[i],'Choose your vegetable/starch'] == 'French Fries':
                 print('Chips')
                 ichips += 1
             else:
                 pass
         
         '''Eggs Benedict'''
-        if rawOrders.loc[rawOrders.index[i],'Please choose one of the following'] == 'Eggs Benedict':
+        if raw_data.loc[raw_data.index[i],'Please choose one of the following'] == 'Eggs Benedict':
             ieggsbenedict = 0
             iengmuffin += 1
             ibacon += 1
-            print('\nEggs benedict for : ' + rawOrders.loc[rawOrders.index[i],'Name2'] + ' at ' + rawOrders.loc[rawOrders.index[i],'Time breakfast must be served'])
-            if rawOrders.loc[rawOrders.index[i],'How must the eggs be poached for the Eggs Benedict?'] == 'Soft':
+            print('\nEggs benedict for : ' + raw_data.loc[raw_data.index[i],'Name2'] + ' at ' + raw_data.loc[raw_data.index[i],'Time breakfast must be served'])
+            if raw_data.loc[raw_data.index[i],'How must the eggs be poached for the Eggs Benedict?'] == 'Soft':
                 print('Soft Eggs')
                 ipoached_s += 2
                 egg_type = 'Soft Poached'
-            elif rawOrders.loc[rawOrders.index[i],'How must the eggs be poached for the Eggs Benedict?'] == 'Medium':
+            elif raw_data.loc[raw_data.index[i],'How must the eggs be poached for the Eggs Benedict?'] == 'Medium':
                 print('Medium Eggs')
                 ipoached_m += 2
                 egg_type = 'Medium Poached'                
-            elif rawOrders.loc[rawOrders.index[i],'How must the eggs be poached for the Eggs Benedict?'] == 'Hard':
+            elif raw_data.loc[raw_data.index[i],'How must the eggs be poached for the Eggs Benedict?'] == 'Hard':
                 print('Hard Eggs')
                 ipoached_h += 2
                 egg_type = 'Hard Poached'                
@@ -576,10 +576,10 @@ def MainBreakfast():
             else:
                 pass
             
-            if rawOrders.loc[rawOrders.index[i],'Choose Chips or Hash Brown'] == 'Chips':
+            if raw_data.loc[raw_data.index[i],'Choose Chips or Hash Brown'] == 'Chips':
                 print('Chips')
                 ichips += 1
-            elif rawOrders.loc[rawOrders.index[i],'Choose Chips or Hash Brown'] == 'Hash Brown':
+            elif raw_data.loc[raw_data.index[i],'Choose Chips or Hash Brown'] == 'Hash Brown':
                 print('Hash Brown')
                 ihashbrown += 1
             else:
@@ -587,17 +587,17 @@ def MainBreakfast():
             
             
             '''Croissant '''
-        if rawOrders.loc[rawOrders.index[i],'Please choose one of the following'] == 'Croissant filled with scrambled egg and bacon':
-            print('\nCroissant for : ' + rawOrders.loc[rawOrders.index[i],'Name2'] + ' at ' + rawOrders.loc[rawOrders.index[i],'Time breakfast must be served'])
+        if raw_data.loc[raw_data.index[i],'Please choose one of the following'] == 'Croissant filled with scrambled egg and bacon':
+            print('\nCroissant for : ' + raw_data.loc[raw_data.index[i],'Name2'] + ' at ' + raw_data.loc[raw_data.index[i],'Time breakfast must be served'])
             ibacon += 1
             iscrambled += 2
             icheese += 1
             egg_type = "Scrambled"
 
-            if rawOrders.loc[rawOrders.index[i],'Choose Chips or Hash Brown4'] == 'Chips':
+            if raw_data.loc[raw_data.index[i],'Choose Chips or Hash Brown4'] == 'Chips':
                 print('Chips')
                 ichips += 1
-            elif rawOrders.loc[rawOrders.index[i],'Choose Chips or Hash Brown4'] == 'Hash Browns':
+            elif raw_data.loc[raw_data.index[i],'Choose Chips or Hash Brown4'] == 'Hash Browns':
                 print('Hash Brown')
                 ihashbrown += 1
             else:
@@ -606,41 +606,41 @@ def MainBreakfast():
             
         '''Omelette'''
         
-        if rawOrders.loc[rawOrders.index[i],'Please choose one of the following'] == ' Omelette with cheese and your choice of two fillings':
-            print('\nOmelette for : ' + rawOrders.loc[rawOrders.index[i],'Name2'] + ' at ' + rawOrders.loc[rawOrders.index[i],'Time breakfast must be served'])
+        if raw_data.loc[raw_data.index[i],'Please choose one of the following'] == ' Omelette with cheese and your choice of two fillings':
+            print('\nOmelette for : ' + raw_data.loc[raw_data.index[i],'Name2'] + ' at ' + raw_data.loc[raw_data.index[i],'Time breakfast must be served'])
             icheese += 1
             iscrambled += 3
             egg_type = "Scrambled Omelette"           
             
-            if rawOrders.loc[rawOrders.index[i],'Omelette filling 1'] == 'Mushroom':
+            if raw_data.loc[raw_data.index[i],'Omelette filling 1'] == 'Mushroom':
                 print('Mushroom')
                 imushroom +=1
             
-            elif rawOrders.loc[rawOrders.index[i],'Omelette filling 1'] == 'Tomato': 
+            elif raw_data.loc[raw_data.index[i],'Omelette filling 1'] == 'Tomato': 
                 print('Tomato')
                 itomato +=1
             
-            elif rawOrders.loc[rawOrders.index[i],'Omelette filling 1'] == 'Savoury mince': 
+            elif raw_data.loc[raw_data.index[i],'Omelette filling 1'] == 'Savoury mince': 
                 print('Mince')
                 ipatty_mince +=1
             
-            elif rawOrders.loc[rawOrders.index[i],'Omelette filling 1'] == 'Bacon': 
+            elif raw_data.loc[raw_data.index[i],'Omelette filling 1'] == 'Bacon': 
                 print('Bacon')
                 ibacon +=1
                 
-            elif rawOrders.loc[rawOrders.index[i],'Omelette filling 1'] == 'Bacon': 
+            elif raw_data.loc[raw_data.index[i],'Omelette filling 1'] == 'Bacon': 
                 print('Bacon')
                 ibacon +=1
                 
-            elif rawOrders.loc[rawOrders.index[i],'Omelette filling 1'] == 'Steak strips': 
+            elif raw_data.loc[raw_data.index[i],'Omelette filling 1'] == 'Steak strips': 
                 print('Steak')
                 isteak +=1
                 
-            elif rawOrders.loc[rawOrders.index[i],'Omelette filling 1'] == 'Grilled onion': 
+            elif raw_data.loc[raw_data.index[i],'Omelette filling 1'] == 'Grilled onion': 
                 print('Onion')
                 ionion +=1
 
-            elif rawOrders.loc[rawOrders.index[i],'Omelette filling 1'] == 'Grilled green pepper': 
+            elif raw_data.loc[raw_data.index[i],'Omelette filling 1'] == 'Grilled green pepper': 
                 print('Green Pepper')
                 igreenpepper +=1
             else:
@@ -648,44 +648,44 @@ def MainBreakfast():
             
             
             
-            if rawOrders.loc[rawOrders.index[i],'Omelette filling 2'] == 'Mushroom':
+            if raw_data.loc[raw_data.index[i],'Omelette filling 2'] == 'Mushroom':
                 print('Mushroom')
                 imushroom +=1
             
-            elif rawOrders.loc[rawOrders.index[i],'Omelette filling 2'] == 'Tomato': 
+            elif raw_data.loc[raw_data.index[i],'Omelette filling 2'] == 'Tomato': 
                 print('Tomato')
                 itomato +=1
             
-            elif rawOrders.loc[rawOrders.index[i],'Omelette filling 2'] == 'Savoury mince': 
+            elif raw_data.loc[raw_data.index[i],'Omelette filling 2'] == 'Savoury mince': 
                 print('Mince')
                 ipatty_mince +=1
             
-            elif rawOrders.loc[rawOrders.index[i],'Omelette filling 2'] == 'Bacon': 
+            elif raw_data.loc[raw_data.index[i],'Omelette filling 2'] == 'Bacon': 
                 print('Bacon')
                 ibacon +=1
                 
-            elif rawOrders.loc[rawOrders.index[i],'Omelette filling 2'] == 'Bacon': 
+            elif raw_data.loc[raw_data.index[i],'Omelette filling 2'] == 'Bacon': 
                 print('Bacon')
                 ibacon +=1
                 
-            elif rawOrders.loc[rawOrders.index[i],'Omelette filling 2'] == 'Steak strips': 
+            elif raw_data.loc[raw_data.index[i],'Omelette filling 2'] == 'Steak strips': 
                 print('Steak')
                 isteak +=1
                 
-            elif rawOrders.loc[rawOrders.index[i],'Omelette filling 2'] == 'Grilled onion': 
+            elif raw_data.loc[raw_data.index[i],'Omelette filling 2'] == 'Grilled onion': 
                 print('Onion')
                 ionion +=1
 
-            elif rawOrders.loc[rawOrders.index[i],'Omelette filling 2'] == 'Grilled green pepper': 
+            elif raw_data.loc[raw_data.index[i],'Omelette filling 2'] == 'Grilled green pepper': 
                 print('Green Pepper')
                 igreenpepper +=1
             else:
                 pass
             
-            if rawOrders.loc[rawOrders.index[i],'Choose Chips or Hash Brown2']  == 'Chips':
+            if raw_data.loc[raw_data.index[i],'Choose Chips or Hash Brown2']  == 'Chips':
                 print('Chips')
                 ichips += 1
-            elif rawOrders.loc[rawOrders.index[i],'Choose Chips or Hash Brown2'] == 'Hash Browns':
+            elif raw_data.loc[raw_data.index[i],'Choose Chips or Hash Brown2'] == 'Hash Browns':
                 print('Hash Brown')
                 ihashbrown += 1
             else:
@@ -693,44 +693,44 @@ def MainBreakfast():
             
             
         '''Toasted Sandwich'''
-        if rawOrders.loc[rawOrders.index[i],'Please choose one of the following'] == 'Toasted Sandwich ':
-            print('\nToasted Sandwich for : ' + rawOrders.loc[rawOrders.index[i],'Name2'] + ' at ' + rawOrders.loc[rawOrders.index[i],'Time breakfast must be served'])
+        if raw_data.loc[raw_data.index[i],'Please choose one of the following'] == 'Toasted Sandwich ':
+            print('\nToasted Sandwich for : ' + raw_data.loc[raw_data.index[i],'Name2'] + ' at ' + raw_data.loc[raw_data.index[i],'Time breakfast must be served'])
             
-            if rawOrders.loc[rawOrders.index[i],'Bread for the sandwich'] == 'White bread':
+            if raw_data.loc[raw_data.index[i],'Bread for the sandwich'] == 'White bread':
                 itoastbread_w += 3
             else:
                 itoastbread_b += 3
                 
-            if rawOrders.loc[rawOrders.index[i],'Filling for the toasted sandwich'] == 'Cheese':
+            if raw_data.loc[raw_data.index[i],'Filling for the toasted sandwich'] == 'Cheese':
                 print('Cheese')
                 icheese += 1
-            elif rawOrders.loc[rawOrders.index[i],'Filling for the toasted sandwich'] == 'Bacon and cheese':
+            elif raw_data.loc[raw_data.index[i],'Filling for the toasted sandwich'] == 'Bacon and cheese':
                 print('Bacon and cheese')
                 ibacon += 1
                 icheese += 1
-            elif rawOrders.loc[rawOrders.index[i],'Filling for the toasted sandwich'] == 'Bacon, egg and cheese':
+            elif raw_data.loc[raw_data.index[i],'Filling for the toasted sandwich'] == 'Bacon, egg and cheese':
                 print('Bacon, egg and cheese')
                 ibacon += 1
                 ifried_h += 2
                 icheese += 1
                 egg_type = "Fried Hard for sandwich"
-            elif rawOrders.loc[rawOrders.index[i],'Filling for the toasted sandwich'] == 'Bacon, cheese and tomato': 
+            elif raw_data.loc[raw_data.index[i],'Filling for the toasted sandwich'] == 'Bacon, cheese and tomato': 
                 print('Bacon, cheese and tomato')
                 ibacon += 1
                 icheese += 1
                 itomato += 1
-            elif rawOrders.loc[rawOrders.index[i],'Filling for the toasted sandwich'] == 'Chicken Mayonaise':
+            elif raw_data.loc[raw_data.index[i],'Filling for the toasted sandwich'] == 'Chicken Mayonaise':
                 print('Chicken Mayonaise')
                 ichick_mayo += 1
-            elif rawOrders.loc[rawOrders.index[i],'Filling for the toasted sandwich'] == 'Pulled pork and cheese':
+            elif raw_data.loc[raw_data.index[i],'Filling for the toasted sandwich'] == 'Pulled pork and cheese':
                 print('Pulled pork and cheese')
                 ipulled_pork += 1
                 icheese += 1
                 
-            if rawOrders.loc[rawOrders.index[i],'Choose Chips or Hash Brown3']  == 'Chips':
+            if raw_data.loc[raw_data.index[i],'Choose Chips or Hash Brown3']  == 'Chips':
                 print('Chips')
                 ichips += 1
-            elif rawOrders.loc[rawOrders.index[i],'Choose Chips or Hash Brown3'] == 'Hash Browns':
+            elif raw_data.loc[raw_data.index[i],'Choose Chips or Hash Brown3'] == 'Hash Browns':
                 print('Hash Brown')
                 ihashbrown += 1
             else:
@@ -738,38 +738,38 @@ def MainBreakfast():
             
             
         '''Breakfast Burger'''    
-        if rawOrders.loc[rawOrders.index[i],'Please choose one of the following'] == 'Breakfast burger ':
-            print('\nBreakfast Bruger for : ' + rawOrders.loc[rawOrders.index[i],'Name2'] + ' at ' + rawOrders.loc[rawOrders.index[i],'Time breakfast must be served'])
+        if raw_data.loc[raw_data.index[i],'Please choose one of the following'] == 'Breakfast burger ':
+            print('\nBreakfast Bruger for : ' + raw_data.loc[raw_data.index[i],'Name2'] + ' at ' + raw_data.loc[raw_data.index[i],'Time breakfast must be served'])
             itomato += 1
             ionion_ring+=1
             ihamb_bun +=1
             
-            if rawOrders.loc[rawOrders.index[i],'Breakfast burger option'] == 'Beef Patty':
+            if raw_data.loc[raw_data.index[i],'Breakfast burger option'] == 'Beef Patty':
                 print('Beef')
                 ipatty_mince += 1
             else:
                 print('Chicken')
                 ichick_schn += 1
             
-            if rawOrders.loc[rawOrders.index[i],'How must the eggs be done for the breakfast burger?'] == 'Soft':
+            if raw_data.loc[raw_data.index[i],'How must the eggs be done for the breakfast burger?'] == 'Soft':
                 print('Soft Egg')
                 ifried_s += 1
                 egg_type = "Soft Fried For Burger"
-            elif rawOrders.loc[rawOrders.index[i],'How must the eggs be done for the breakfast burger?'] == 'Medium':
+            elif raw_data.loc[raw_data.index[i],'How must the eggs be done for the breakfast burger?'] == 'Medium':
                 print('Medium Egg')
                 ifried_m += 1
                 egg_type = "Medium Fried For Burger"
-            elif rawOrders.loc[rawOrders.index[i],'How must the eggs be done for the breakfast burger?'] == 'Hard':
+            elif raw_data.loc[raw_data.index[i],'How must the eggs be done for the breakfast burger?'] == 'Hard':
                 print('Hard Egg')
                 ifried_h += 1
                 egg_type = "Hard Fried For Burger"
             else:
                 pass
             
-            if rawOrders.loc[rawOrders.index[i],'Choose Chips or Hash Brown4']  == 'Chips':
+            if raw_data.loc[raw_data.index[i],'Choose Chips or Hash Brown4']  == 'Chips':
                 print('Chips')
                 ichips += 1
-            elif rawOrders.loc[rawOrders.index[i],'Choose Chips or Hash Brown4'] == 'Hash Browns':
+            elif raw_data.loc[raw_data.index[i],'Choose Chips or Hash Brown4'] == 'Hash Browns':
                 print('Hash Brown')
                 ihashbrown += 1
             else:
@@ -777,37 +777,37 @@ def MainBreakfast():
             
             
         '''Breakfast wrap'''           
-        if rawOrders.loc[rawOrders.index[i],'Please choose one of the following'] == 'Breakfast wrap':
-            print('\nBreakfast Wrap : ' + rawOrders.loc[rawOrders.index[i],'Name2'] + ' at ' + rawOrders.loc[rawOrders.index[i],'Time breakfast must be served'])
+        if raw_data.loc[raw_data.index[i],'Please choose one of the following'] == 'Breakfast wrap':
+            print('\nBreakfast Wrap : ' + raw_data.loc[raw_data.index[i],'Name2'] + ' at ' + raw_data.loc[raw_data.index[i],'Time breakfast must be served'])
             iwrap += 1
             
-            if rawOrders.loc[rawOrders.index[i],'Filling for the breakfast wrap'] == 'Scrambled egg, bacon and cheese':
+            if raw_data.loc[raw_data.index[i],'Filling for the breakfast wrap'] == 'Scrambled egg, bacon and cheese':
                 print('Scrambled egg, Bacon and Cheese')
                 iscrambled += 2
                 ibacon += 1
                 icheese += 1
                 egg_type = "Scrabled For Wrap"
-            elif rawOrders.loc[rawOrders.index[i],'Filling for the breakfast wrap'] == 'Scrambled egg, tomato, bacon and cheese':
+            elif raw_data.loc[raw_data.index[i],'Filling for the breakfast wrap'] == 'Scrambled egg, tomato, bacon and cheese':
                 print('Scrambled egg,Tomato, Bacon and Cheese')
                 iscrambled += 2
                 ibacon += 1
                 icheese += 1
                 itomato += 1
                 egg_type = "Scrembled For Wrap"
-            elif rawOrders.loc[rawOrders.index[i],'Filling for the breakfast wrap'] == 'Chicken mayonaise':
+            elif raw_data.loc[raw_data.index[i],'Filling for the breakfast wrap'] == 'Chicken mayonaise':
                 print('Chicken Mayo')
                 ichick_mayo += 1
-            elif rawOrders.loc[rawOrders.index[i],'Filling for the breakfast wrap'] == 'Mince and cheese':
+            elif raw_data.loc[raw_data.index[i],'Filling for the breakfast wrap'] == 'Mince and cheese':
                 print('Mince and cheese')
                 ipatty_mince += 1
                 icheese += 1
                 
-            elif rawOrders.loc[rawOrders.index[i],'Filling for the breakfast wrap'] == 'Steak, grilled onion and cheese': 
+            elif raw_data.loc[raw_data.index[i],'Filling for the breakfast wrap'] == 'Steak, grilled onion and cheese': 
                 print('Steak, grilled onion and cheese')
                 isteak +=1
                 ionion += 1
                 icheese += 1
-            elif rawOrders.loc[rawOrders.index[i],'Filling for the breakfast wrap'] == 'Marinated pulled pork and cheese':
+            elif raw_data.loc[raw_data.index[i],'Filling for the breakfast wrap'] == 'Marinated pulled pork and cheese':
                 print('Marinated pulled pork and cheese')
                 ipulled_pork += 1
                 icheese += 1
@@ -815,10 +815,10 @@ def MainBreakfast():
             else:
                 pass
             
-            if rawOrders.loc[rawOrders.index[i],'Choose Chips or Hash Brown5']  == 'Chips':
+            if raw_data.loc[raw_data.index[i],'Choose Chips or Hash Brown5']  == 'Chips':
                 print('Chips')
                 ichips += 1
-            elif rawOrders.loc[rawOrders.index[i],'Choose Chips or Hash Brown5'] == 'Hash Browns':
+            elif raw_data.loc[raw_data.index[i],'Choose Chips or Hash Brown5'] == 'Hash Browns':
                 print('Hash Brown')
                 ihashbrown += 1
             else:
@@ -900,18 +900,18 @@ def MainBreakfast():
     dfVeg_Starch.loc[dfVeg_Starch.shape[0]+1] = ['Engish Muffin', iengmuffin]
     
     
-    
-def main():
+   
+def main(data):
     # print('Juice, Fruit and Yoghurt')
-    CountItems()
+    CountItems(data)
     # print('\nCreal')
-    Cereal()
+    Cereal(data)
     
-    NotIncluded()
-    CountBread()
+    NotIncluded(data)
+    CountBread(data)
     print('\nDrinks')
-    CountDrinks()
-    MainBreakfast()
+    CountDrinks(data)
+    MainBreakfast(data)
 
 
     dfEierTye['Tyd'] = pd.to_datetime(dfEierTye['Tyd'])
@@ -924,6 +924,4 @@ def main():
         dfMeat.to_excel(writer, sheet_name='Meat', index=False)
         dfVeg_Starch.to_excel(writer, sheet_name='Veg and Starch',index=False)
         dfEierTye.to_excel(writer, sheet_name="Eggs And time to be completed", index=False)
-        
-if __name__ == '__main__':
-    main()
+
