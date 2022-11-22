@@ -7,7 +7,7 @@ import datetime as dt
 
 
 
-rawOrders = pd.read_excel(r'/home/mllr/Documents/Python/order-system2/main_files/Raw.xlsx')
+rawOrders = pd.read_excel(r'D:\Python\order_system\main_files\Raw.xlsx')
 rawOrders =  rawOrders.drop(['ID','Start time','Completion time','Email','Name'], axis=1)
 inventory = pd.DataFrame(columns=['Product', 'Amount'])
 dfEggs = pd.DataFrame(columns=['Product', 'Amount'])
@@ -915,8 +915,9 @@ def main():
 
 
     dfEierTye['Tyd'] = pd.to_datetime(dfEierTye['Tyd'])
+    dfEierTye['Tyd'] = dfEierTye['Tyd'].dt.time 
 
-    dfEierTye.sort_values(by=["Tyd"])
+    dfEierTye.sort_values(by=["Tyd"], inplace=True)
 
 
 
