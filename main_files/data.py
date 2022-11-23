@@ -739,6 +739,7 @@ def MainBreakfast(raw_data):
             itomato += 1
             ionion_ring+=1
             ihamb_bun +=1
+            iburger += 1
             
             if raw_data.loc[raw_data.index[i],'Breakfast burger option'] == 'Beef Patty':
                 print('Beef')
@@ -894,6 +895,8 @@ def MainBreakfast(raw_data):
     dfVeg_Starch.loc[dfVeg_Starch.shape[0]+1] = ['Hamburger Bun', ihamb_bun]
     dfVeg_Starch.loc[dfVeg_Starch.shape[0]+1] = ['Wrap', iwrap]
     dfVeg_Starch.loc[dfVeg_Starch.shape[0]+1] = ['Engish Muffin', iengmuffin]
+
+    # print(f'{iburger} + {ipatty_mince} + {ichick_schn}')
     
     
    
