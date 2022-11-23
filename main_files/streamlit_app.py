@@ -2,8 +2,6 @@ import streamlit as st
 import data 
 import pandas as pd
 import os 
-from io import BytesIO
-from pyxlsb import open_workbook as open_xlsb
 
 st.title("Order System V2")
 
