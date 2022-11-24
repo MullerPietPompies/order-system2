@@ -13,6 +13,70 @@ dfEierTye = pd.DataFrame(columns=['Eier Tipe', 'Tyd', 'Gas'])
 
 '''Dear future me. I am very sorry for what you are about to have to use.'''
 
+icreate_own = 0
+ieggsbenedict = 0
+icroissant = 0 
+iomelette = 0
+itoasted = 0
+iburger = 0
+iwrap = 0
+    
+    
+'''Eggs'''
+ifried_s = 0
+ifried_m = 0
+ifried_h = 0 
+    
+iboiled_s = 0
+iboiled_m = 0
+iboiled_h = 0
+    
+ipoached_s = 0
+ipoached_m = 0
+ipoached_h = 0
+
+iscrambled = 0
+    
+'''Meat options'''
+ibacon = 0
+ipatty_mince = 0
+isteak = 0
+iboerewors = 0
+ichick_liv = 0
+ipork = 0
+icheesegriller = 0
+ichick_schn = 0
+ichick_nugg = 0
+ipulled_pork = 0
+    
+    
+ichick_mayo = 0
+    
+    
+'''Veggie Starch'''
+ipap_relish = 0
+ibeans = 0
+ihashbrown = 0
+imushroom = 0
+ionion = 0
+ionion_ring = 0
+ichips = 0
+
+'''Other'''
+icheese = 0
+itomato = 0
+igreenpepper = 0
+
+itoastbread_b = 0
+itoastbread_w =0
+ihamb_bun = 0
+iwrap = 0
+iengmuffin = 0
+
+
+guest = ""
+egg_type = ''
+
 
 def CountItems(raw_data):
     iJuice = 0
@@ -296,68 +360,7 @@ def CountDrinks(raw_data):
 '''Main Breakfast'''
 def MainBreakfast(raw_data):
     '''Options'''
-    icreate_own = 0
-    ieggsbenedict = 0
-    icroissant = 0 
-    iomelette = 0
-    itoasted = 0
-    iburger = 0
-    iwrap = 0
     
-    
-    '''Eggs'''
-    ifried_s = 0
-    ifried_m = 0
-    ifried_h = 0 
-    
-    iboiled_s = 0
-    iboiled_m = 0
-    iboiled_h = 0
-    
-    ipoached_s = 0
-    ipoached_m = 0
-    ipoached_h = 0
-    
-    iscrambled = 0
-    
-    '''Meat options'''
-    ibacon = 0
-    ipatty_mince = 0
-    isteak = 0
-    iboerewors = 0
-    ichick_liv = 0
-    ipork = 0
-    icheesegriller = 0
-    ichick_schn = 0
-    ichick_nugg = 0
-    ipulled_pork = 0
-    
-    
-    ichick_mayo = 0
-    
-    
-    '''Veggie Starch'''
-    ipap_relish = 0
-    ibeans = 0
-    ihashbrown = 0
-    imushroom = 0
-    ionion = 0
-    ionion_ring = 0
-    ichips = 0
-    
-    '''Other'''
-    icheese = 0
-    itomato = 0
-    igreenpepper = 0
-    
-    itoastbread_b = 0
-    itoastbread_w =0
-    ihamb_bun = 0
-    iwrap = 0
-    iengmuffin = 0
-
-
-    guest = ""
 
 
     
@@ -448,7 +451,7 @@ def MainBreakfast(raw_data):
                 
             elif raw_data.loc[raw_data.index[i],'Choose your first meat option'] == 'Minute steak':
                 print('Steak')
-                iSteak += 1
+                isteak += 1
             
             elif raw_data.loc[raw_data.index[i],'Choose your first meat option'] == 'Savoury mince':
                 print('Patty/Mince')
@@ -493,7 +496,7 @@ def MainBreakfast(raw_data):
                 
             elif raw_data.loc[raw_data.index[i],'Choose your second meat option'] == 'Minute steak':
                 print('Steak')
-                iSteak += 1
+                isteak += 1
             
             elif raw_data.loc[raw_data.index[i],'Choose your second meat option'] == 'Savoury mince':
                 print('Patty/Mince')
@@ -865,20 +868,30 @@ def MainBreakfast(raw_data):
     dfEggs.loc[indexnum] = ['Scrambled' ,    iscrambled] 
 
 
- 
+    indexnum = 0
     
     
-    dfMeat.loc[dfMeat.shape[0]+1] =['Bacon', ibacon]
-    dfMeat.loc[dfMeat.shape[0]+1] =['Mince/Beef Patty', ipatty_mince]
-    dfMeat.loc[dfMeat.shape[0]+1] =['Steak', isteak]
-    dfMeat.loc[dfMeat.shape[0]+1] =['Boerewors', iboerewors]
-    dfMeat.loc[dfMeat.shape[0]+1] =['Chicken Livers', ichick_liv]
-    dfMeat.loc[dfMeat.shape[0]+1] =['Pork Banger', ipork]
-    dfMeat.loc[dfMeat.shape[0]+1] =['Mini Cheese Griller', icheesegriller]
-    dfMeat.loc[dfMeat.shape[0]+1] =['Chicken Schnitzel', ichick_schn]
-    dfMeat.loc[dfMeat.shape[0]+1] =['Chicken Nuggets', ichick_nugg]
-    dfMeat.loc[dfMeat.shape[0]+1] =['Pulled Pork', ipulled_pork]
+    dfMeat.loc[indexnum] =['Bacon', ibacon]
+    indexnum += 1
+    dfMeat.loc[indexnum] =['Mince/Beef Patty', ipatty_mince]
+    indexnum += 1
+    dfMeat.loc[indexnum] =['Steak', isteak]
+    indexnum += 1
+    dfMeat.loc[indexnum] =['Boerewors', iboerewors]
+    indexnum += 1
+    dfMeat.loc[indexnum] =['Chicken Livers', ichick_liv]
+    indexnum += 1
+    dfMeat.loc[indexnum] =['Pork Banger', ipork]
+    indexnum += 1
+    dfMeat.loc[indexnum] =['Mini Cheese Griller', icheesegriller]
+    indexnum += 1
+    dfMeat.loc[indexnum] =['Chicken Schnitzel', ichick_schn]
+    indexnum += 1
+    dfMeat.loc[indexnum] =['Chicken Nuggets', ichick_nugg]
+    indexnum += 1
+    dfMeat.loc[indexnum] =['Pulled Pork', ipulled_pork]
     
+    indexnum =0 
     
     dfVeg_Starch.loc[dfVeg_Starch.shape[0]+1] = ['Pap en Relish',ipap_relish]
     dfVeg_Starch.loc[dfVeg_Starch.shape[0]+1] = ['Baked Beans', ibeans]
@@ -901,26 +914,33 @@ def MainBreakfast(raw_data):
     
    
 def main(data):
+    if os.path.exists('Out.xlsx'):
+        os.remove('Out.xlsx')
+
+    if data is not None:
     # print('Juice, Fruit and Yoghurt')
-    CountItems(data)
+        CountItems(data)
     # print('\nCreal')
-    Cereal(data)
-    
-    NotIncluded(data)
-    CountBread(data)
-    print('\nDrinks')
-    CountDrinks(data)
-    MainBreakfast(data)
+        Cereal(data)
+        
+        NotIncluded(data)
+        CountBread(data)
+
+        print('\nDrinks')
+        CountDrinks(data)
+        MainBreakfast(data)
 
 
-    dfEierTye['Tyd'] = pd.to_datetime(dfEierTye['Tyd'])
-    dfEierTye['Tyd'] = dfEierTye['Tyd'].dt.time 
+        # dfEierTye['Tyd'] = pd.to_datetime(dfEierTye['Tyd'])
+        # dfEierTye['Tyd'] = dfEierTye['Tyd'].apply(pd.Timestamp)
+        # dfEierTye['Tyd'] = dfEierTye['Tyd'].dt.time 
 
-    dfEierTye.sort_values(by=["Tyd"], inplace=True)
-    with pd.ExcelWriter('Out.xlsx') as writer:
-        inventory.to_excel(writer, sheet_name='Juice and Drinks', index=False)
-        dfEggs.to_excel(writer, sheet_name='Eggs', index=False)
-        dfMeat.to_excel(writer, sheet_name='Meat', index=False)
-        dfVeg_Starch.to_excel(writer, sheet_name='Veg and Starch',index=False)
-        dfEierTye.to_excel(writer, sheet_name="Eggs And time to be completed", index=False)
+        dfEierTye.sort_values(by=["Tyd"], inplace=True)
+        
+        with pd.ExcelWriter('Out.xlsx') as writer:
+            inventory.to_excel(writer, sheet_name='Juice and Drinks', index=False)
+            dfEggs.to_excel(writer, sheet_name='Eggs', index=False)
+            dfMeat.to_excel(writer, sheet_name='Meat', index=False)
+            dfVeg_Starch.to_excel(writer, sheet_name='Veg and Starch',index=False)
+            dfEierTye.to_excel(writer, sheet_name="Eggs And time to be completed", index=False)
 
