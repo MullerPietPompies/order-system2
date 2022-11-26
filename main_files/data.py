@@ -4,7 +4,6 @@ import time
 import datetime as dt
 import os
 
-
 inventory = pd.DataFrame(columns=['Product', 'Amount'])
 dfEggs = pd.DataFrame(columns=['Product', 'Amount'])
 dfMeat = pd.DataFrame(columns=['Product', 'Amount'])
